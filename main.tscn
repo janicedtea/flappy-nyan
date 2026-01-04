@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmxysbtmyepab"]
+[gd_scene load_steps=6 format=3 uid="uid://dmxysbtmyepab"]
 
 [ext_resource type="Script" uid="uid://hmqm01fnhi0e" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://c7lio17eydeh2" path="res://background.png" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://d3v1qv00oe2jt" path="res://pipe.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://db86v01xcm6g" path="res://nyan.tscn" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://b4lodjh0bmufm" path="res://ground.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
+pipe_scene = ExtResource("2_lquwl")
 
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(577, 325.49997)
@@ -16,3 +18,8 @@ texture = ExtResource("1_ig7tw")
 [node name="nyan" parent="." instance=ExtResource("3_1bvp3")]
 
 [node name="ground" parent="." instance=ExtResource("4_1bvp3")]
+
+[node name="pipe_timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="pipe_timer" to="." method="_on_pipe_timer_timeout"]
