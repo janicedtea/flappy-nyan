@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmxysbtmyepab"]
+[gd_scene load_steps=5 format=3 uid="uid://dmxysbtmyepab"]
 
 [ext_resource type="Script" uid="uid://hmqm01fnhi0e" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://c7lio17eydeh2" path="res://background.png" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://db86v01xcm6g" path="res://nyan.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://b4lodjh0bmufm" path="res://ground.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -13,3 +14,5 @@ scale = Vector2(0.9015625, 1.0140625)
 texture = ExtResource("1_ig7tw")
 
 [node name="nyan" parent="." instance=ExtResource("3_1bvp3")]
+
+[node name="ground" parent="." instance=ExtResource("4_1bvp3")]

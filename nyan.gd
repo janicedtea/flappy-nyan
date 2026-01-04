@@ -9,17 +9,24 @@ var falling : bool = false
 const start_pos = Vector2(100, 400)
 
 func _ready():
+	$rainbow.play("trail")
 	reset()
 	
 func reset():
 	falling = false
 	flying = false
 	position = start_pos
+	$rainbow.stop()
 	set_rotation(0)
 	
 func _physics_process(delta):
 	if flying or falling:
 		velocity.y += gravity * delta
+		if flying:
+			$rainbow.visible = true
+		else:
+			$rainbow.visible = false
+
 		if velocity.y > max_vel:
 			velocity.y = max_vel
 		if flying:

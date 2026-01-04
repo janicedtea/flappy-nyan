@@ -15,6 +15,7 @@ const pipe_range : int = 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	screen_size = get_window().size
 	new_game()
 
 func new_game():
@@ -43,5 +44,11 @@ func start_game():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _process(delta):
+	if game_running:
+		scroll += scroll_speed
+		#reset scroll 
+		if scroll >= screen_size.x:
+			scroll = 0
+		#move ground
+		$ground.position.x = -scroll
