@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmxysbtmyepab"]
+[gd_scene load_steps=8 format=3 uid="uid://dmxysbtmyepab"]
 
 [ext_resource type="Script" uid="uid://hmqm01fnhi0e" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://c7lio17eydeh2" path="res://background.png" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://d3v1qv00oe2jt" path="res://pipe.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://db86v01xcm6g" path="res://nyan.tscn" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://b4lodjh0bmufm" path="res://ground.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cwsb1xy1uaki" path="res://game_over.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bdmvhlsq5m7q" path="res://music.tscn" id="7_272bh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -16,10 +18,29 @@ scale = Vector2(0.9015625, 1.0140625)
 texture = ExtResource("1_ig7tw")
 
 [node name="nyan" parent="." instance=ExtResource("3_1bvp3")]
+z_index = 3
 
 [node name="ground" parent="." instance=ExtResource("4_1bvp3")]
+z_index = 2
 
 [node name="pipe_timer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="score_label" type="Label" parent="."]
+z_index = 4
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "score: 0"
+
+[node name="game_over" parent="." instance=ExtResource("6_7mycd")]
+
+[node name="music" parent="." instance=ExtResource("7_272bh")]
+
+[connection signal="hit" from="ground" to="." method="_on_ground_hit"]
 [connection signal="timeout" from="pipe_timer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="restart" from="game_over" to="." method="_on_game_over_restart"]

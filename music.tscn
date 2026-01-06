@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdmvhlsq5m7q"]
+
+[ext_resource type="AudioStream" uid="uid://cnqem8x13ayh2" path="res://nyan cat music.mp3" id="1_3h6ak"]
+
+[node name="music" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_3h6ak")
+autoplay = true
+parameters/looping = true

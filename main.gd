@@ -26,6 +26,9 @@ func new_game():
 	game_over = false
 	score = 0
 	scroll = 0
+	$score_label.text = "score: " + str(score)
+	$game_over.hide()
+	get_tree().call_group("pipes", "queue_free")
 	pipes.clear()
 	#starting pipes
 	generate_pipes()
@@ -40,6 +43,7 @@ func _input(event):
 				else:
 					if $nyan.flying:
 						$nyan.flap()
+						check_top()
 
 func start_game():
 	game_running = true
@@ -73,8 +77,36 @@ func generate_pipes():
 	@warning_ignore("integer_division")
 	pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-pipe_range, pipe_range)
 	pipe.hit.connect(nyan_hit)
+	pipe.scored.connect(scored)
 	add_child(pipe)
 	pipes.append(pipe)
 
+func scored():
+	score += 1
+	$score_label.text = "score: " + str(score)
+
+func check_top():
+	if $nyan.position.y < 0:
+		$nyan.falling = true
+		stop_game()
+
+func stop_game():
+	$pipe_timer.stop()
+	$game_over.show()
+	$nyan.flying = false
+	game_running = false
+	game_over = true
+
 func nyan_hit():
-	pass
+	$nyan.falling = true
+	stop_game()
+
+
+func _on_ground_hit() -> void:
+	$nyan.falling = false
+	$nyan/rainbow.hide()
+	stop_game()
+
+
+func _on_game_over_restart() -> void:
+	new_game()
